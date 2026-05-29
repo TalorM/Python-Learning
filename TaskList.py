@@ -1,6 +1,7 @@
 import time
 import json
 
+# TODO Add a way to select file from file explorer gui menu?
 task_file_path = "C:\\source\\Python Learning\\Task-List.json"
 tasks = {}
 
@@ -15,7 +16,7 @@ def ListTaskOptions():
   option = input("Enter option: ")
 
   if option == "0" or option == "" or option =="Enter":
-    ListTasks()
+    ViewCurrentTasks()
   elif option == "1":
     CreateTaskFile()
   elif option == "2":
@@ -27,15 +28,30 @@ def ListTaskOptions():
 
   return
 
-def ListTasks():
-  # Pull tasks
-  # Display tasks
-  # Display options to edit, add, or remove
+def ViewCurrentTasks():
+  LoadTasks()
+  # TODO Display tasks
+  # TODO Display task options (Remove, Add, Edit)
+  return
+
+def LoadTasks(permission="r"):
+  global tasks
   print("Grabbing Tasks from " + task_file_path)
-  # try:
-  #   with open(task_file_path)
-  # except
-  # tasks = json.load()
+  try:
+    with open(task_file_path, permission) as task_list:
+      tasks = json.load(task_list)
+  except:
+    print("The file was not found at this location! Change file path?")
+    confirmation = input("Confirm? (y/n): ")
+    if confirmation == "y" or confirmation == "":
+      ChangeTaskFilePath()
+    else:
+      print("Canceled. Returning to Main Menu...")
+      time.sleep(3)
+      ListTaskOptions()
+  return 'Error'
+
+def CreateTaskFile():
   return
 
 def ChangeTaskFilePath():
@@ -60,9 +76,6 @@ def ChangeTaskFilePath():
       print("Canceled. Returning to previous input")
       time.sleep(3)
       ChangeTaskFilePath()
-  return
-
-def CreateTaskFile():
   return
 
 ListTaskOptions()
