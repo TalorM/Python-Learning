@@ -52,6 +52,9 @@ def LoadTasks(permission="r"):
   return 'Error'
 
 def CreateTaskFile():
+  print("Building new task-list.json file at" + task_file_path)
+  # TODO Check if file already exists, if does ask if they want to overwrite
+  # Use open() function i think. Look it up more a little later
   return
 
 def ChangeTaskFilePath():
